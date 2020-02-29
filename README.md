@@ -5,6 +5,16 @@
 * 在 Web 运行 5+App（当然肯定存在兼容性问题）；
 * 在编写 5+App 时，不必*特别*考虑原生系统和 Web 之间的差异；
 
+## 目录
+
+* [项目缘由](#项目缘由)
+* [使用方法](#使用方法)
+* [注意事项](#注意事项)
+* [实现进度](#实现进度)
+    * [Key](#Key)
+    * [Storage](#Storage)
+* [常见问题](#常见问题)
+
 ## 项目缘由
 
 原先，我行的主移动应用是基于 5+App 框架而编写的，这也是当年大部分同行所采用的技术。项目组在此框架的基础上，实现了海量的功能和服务（截止目前，已经有超 100+ 页面和功能模块，累计代码超 30W+ 行）。多年来，该应用稳定有 10+ 以上的开发人员进行编码开发。随着微信小程序和公众号的发展，我们在小程序和公众号上进行了发力，推出了多个小程序，深受好评。因此，在此基础上，负责该移动应用的业务部门也期望将应用迁移到微信小程序和服务号 Web 上，拓宽渠道，增强营销。因此，任务便安排到我们组，在经过技术分析后，我们提出了几种技术方案：
@@ -19,7 +29,7 @@
 
 在互联网上进行大量的搜索后，我们开始进行本项目的开发。考虑到可能会有人存在我们同样的需求和痛点（肯定有，项目组服务了不知道多少家同行了），因此经过申请批准后，将这个关键的 MUI H5Plus Adapter（MUI 5+ 适配器）模块开源出来，希望能够帮助大家。当然，里面的实现也会存在不合适的地方，如果有更好的想法，欢迎 PR！
 
-## 使用办法
+## 使用方法
 
 1. 将 `js/mui.plus.adapter.js` 或者 `dist/js/mui.plus.adapter.min.js` 拷贝至您项目中的合适位置，建议与 `mui.min.js` 同级；
 2. 在引入 `mui.min.js` 的 HTML 页面当中，将这个 JS 文件也引入到 HTML 页面当中，注意，引入顺序需要位于 `mui.min.js` 之后，例如：
@@ -46,7 +56,6 @@ mui.ready(function() {
 > * ✅表示 JS 实现基本与 `plus` 一致，可能存在部分功能无法**完美**实现
 > * ⚠️表示 JS 实现存在部分不一致的地方，部分传参或者功能无法实现
 > * ❗️表示 JS 无法实现或者实现完全不一致或者没有效果
-> 具体的实现规则、逻辑和说明可以点击项目后面的「查看详情」查看。
 
 ### Key
 
@@ -56,11 +65,11 @@ mui.ready(function() {
 
 方法：
 
-- [x] [addEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.addEventListener)：✅添加按键事件监听器，[查看详情]()。
-- [x] [hideSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.hideSoftKeybord)：✅隐藏软键盘，[查看详情]()。
-- [ ] [setAssistantType](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.setAssistantType)：❗️设置辅助输入类型，[查看详情]()。
-- [x] [showSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.showSoftKeybord)：⚠️显示软键盘，[查看详情]()。
-- [x] [removeEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.removeEventListener)：✅移除按键事件监听器，[查看详情]()。
+- [x] [addEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.addEventListener)：✅添加按键事件监听器。
+- [x] [hideSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.hideSoftKeybord)：✅隐藏软键盘。
+- [ ] [setAssistantType](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.setAssistantType)：❗️设置辅助输入类型。
+- [x] [showSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.showSoftKeybord)：⚠️显示软键盘。
+- [x] [removeEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.removeEventListener)：✅移除按键事件监听器。
 
 ### Storage
 
@@ -70,12 +79,12 @@ mui.ready(function() {
 
 方法：
 
-- [x] [getLength](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.getLength)：✅获取应用存储区中保存的键值对的个数，[查看详情]()。
-- [x] [getItem](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.getItem)：✅通过键(key)检索获取应用存储的值，[查看详情]()。
-- [x] [setItem](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.setItem)：✅修改或添加键值(key-value)对数据到应用数据存储中，[查看详情]()。
-- [x] [removeItem](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.removeItem)：✅通过key值删除键值对存储的数据，[查看详情]()。
-- [x] [clear](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.clear)：✅清除应用所有的键值对存储数据，[查看详情]()。
-- [x] [key](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.key)：✅获取键值对中指定索引值的key值，[查看详情]()。
+- [x] [getLength](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.getLength)：✅获取应用存储区中保存的键值对的个数。
+- [x] [getItem](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.getItem)：✅通过键(key)检索获取应用存储的值。
+- [x] [setItem](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.setItem)：✅修改或添加键值(key-value)对数据到应用数据存储中。
+- [x] [removeItem](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.removeItem)：✅通过key值删除键值对存储的数据。
+- [x] [clear](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.clear)：✅清除应用所有的键值对存储数据。
+- [x] [key](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.key)：✅获取键值对中指定索引值的key值。
 
 ## 常见问题
 
