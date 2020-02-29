@@ -13,7 +13,7 @@
 * 使用 DCloud 一脉相承的 [Uni-App](https://uniapp.dcloud.io/)，通过 Vue 与 HTML 高度亲密性，简单通过适配和修改实现多端适配的应用；
 * 基于现有的 5+App，对其进行改写使得能在 Web 端运行，然后使用 [kbone](https://developers.weixin.qq.com/miniprogram/dev/extended/kbone/) 或者 `web-view` 之类的技术让 Web 能够在小程序端运行。
 
-原本我们有四名开发人员来进行这个新项目的编写，并且业务部门要求的迁移功能并不复杂，我们基于「创新业务」的理念，选择方案一进行开发。然而随着其他项目的急迫上马，其余几位开发人员被调去开发别的项目，致使该项目只剩笔者一人（无奈...），经过三个月左右的开发，我们基本实现了初期功能（占应用完整功能的 10%），并进行了大量的技术积累（并未原模原样的照搬，只借用了 API，来了一个 Rebuild 和 Redesign）。然而年后回来发现，原先的 5+App 仍然还在同步开发新功能，并且进行了几次破坏性更新（包括新的加密机制、新的密码键盘、新的反欺诈模型、新的用户体系等等），很多工作被迫推到重来。
+原本我们有四名开发人员来进行这个新项目的编写，并且业务部门要求的迁移功能并不复杂，我们基于「创新业务」的理念，选择方案一进行开发。然而随着其他项目的急迫上马，其余几位开发人员被调去开发别的项目，致使该项目只剩笔者一人（无奈...），经过三个月左右的开发，我们基本实现了初期功能（占应用完整功能的 10%），并进行了大量的技术积累（并未原模原样的照搬，只借用了 API，来了一个 Rebuild 和 Redesign）。然而年后回来发现，原先的 5+App 仍然还在同步开发新功能，并且进行了几次破坏性更新（包括新的加密机制、新的密码键盘、新的反欺诈模型、新的用户体系等等），很多工作被迫推倒重来。
 
 考虑到由于本项目人手实在不足（我也有别的项目要完成），因此是没有办法完全重写这个庞然大物的，更何况原项目组也不愿意更换技术架构，因此，原先第一种方案只能腰斩，所幸积累了不少技术组件，可以运用到新的项目当中，也不能算是无用功（反正一点不慌，不影响绩效，![狗头](https://tse3-mm.cn.bing.net/th/id/OIP.qj16y_7fiRp1g7R3SCdhugHaHa?w=96&h=96&c=7&o=5&dpr=2&pid=1.7)）。因此，经过重复的技术论证之后，决定使用第三种方案，这样工作量大大减小，也能够合并到原项目的代码当中，由对方项目组进行维护，同时也能满足业务部门的需求。
 
@@ -47,6 +47,20 @@ mui.ready(function() {
 > * ⚠️表示 JS 实现存在部分不一致的地方，部分传参或者功能无法实现
 > * ❗️表示 JS 无法实现或者实现完全不一致或者没有效果
 > 具体的实现规则、逻辑和说明可以点击项目后面的「查看详情」查看。
+
+### Key
+
+> Key管理设备按键事件
+
+实现思路：`plus.key` 基本上是对「按键」进行的控制，这个操作在 Web 上有类似实现，但是表现大为不同。
+
+方法：
+
+- [x] [addEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.addEventListener)：✅添加按键事件监听器，[查看详情]()。
+- [x] [hideSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.hideSoftKeybord)：✅隐藏软键盘，[查看详情]()。
+- [ ] [setAssistantType](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.setAssistantType)：❗️设置辅助输入类型，[查看详情]()。
+- [x] [showSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.showSoftKeybord)：⚠️显示软键盘，[查看详情]()。
+- [x] [removeEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.removeEventListener)：✅移除按键事件监听器，[查看详情]()。
 
 ### Storage
 
