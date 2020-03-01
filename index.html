@@ -19,6 +19,7 @@ document.oncontextmenu=function(){
 };
 // H5 plus事件处理
 function plusReady(){
+  mui.initPlusRuntime();
 	// openPrivacy();
 	// Android处理返回键
 	plus.key.addEventListener('backbutton',function(){
@@ -328,6 +329,7 @@ li:active {
   <script type="text/javascript" src="js/plus/mui.plus.adapter.webview.js"></script>
   <script type="text/javascript" src="js/plus/mui.plus.adapter.storage.js"></script>
   <script type="text/javascript" src="js/plus/mui.plus.adapter.net.js"></script>
+  <script type="text/javascript" src="js/plus/mui.plus.adapter.runtime.js"></script>
 	<script type="text/javascript">
 ;(function () {
 	'use strict';

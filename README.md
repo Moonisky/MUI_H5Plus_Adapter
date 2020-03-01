@@ -12,6 +12,7 @@
 * [注意事项](#注意事项)
 * [实现进度](#实现进度)
     * [Key](#Key)
+    * [Runtime](#Runtime)
     * [Storage](#Storage)
     * [XMLHttpRequest](#XMLHttpRequest)
 * [常见问题](#常见问题)
@@ -54,9 +55,10 @@ mui.ready(function() {
 ## 实现进度
 
 > 注：已标记 (checked) 的项目表示代码已经实现，项目后面的符号表示 API 的适配程度：
-> * ✅表示 JS 实现基本与 `plus` 一致，可能存在部分功能无法**完美**实现
+> * ✅表示 JS 实现与 `plus` 基本一致，可能存在部分功能无法完美实现
 > * ⚠️表示 JS 实现存在部分不一致的地方，部分传参或者功能无法实现
-> * ❗️表示 JS 无法实现或者实现完全不一致或者没有效果
+> * ❗️表示 JS 无法实现，或者实现完全不一致，或者没有效果
+> * ❓表示该实现仍有疑问，或者暂时不清除怎么实现仍在研究中。
 
 ### Key
 
@@ -68,11 +70,56 @@ mui.ready(function() {
 
 - [x] [addEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.addEventListener)：✅添加按键事件监听器。
 - [x] [hideSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.hideSoftKeybord)：✅隐藏软键盘。
+  > 页面上必须要有 `<input>` 或者 `<textarea>` 元素才有作用。
 - [x] [setAssistantType](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.setAssistantType)：⚠️设置辅助输入类型。
   > 这里使用了 `<input>` 标签的 `autocomplete` 属性来模拟实现，但是实际表现仍与原 API 不同，仅能借助浏览器的填充提示来完成软键盘上的辅助输入，但是内容无法控制。
 - [x] [showSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.showSoftKeybord)：❗️显示软键盘。
   > 原实现中，iOS 需获取 DOM 中的 `<input>` 元素并调用其 `focus` 方法获取焦点才能主动弹出系统软键盘，而 Web 也是如此实现，因此参照 iOS，直接标记为不支持。
 - [x] [removeEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.removeEventListener)：✅移除按键事件监听器。
+
+### Runtime
+
+> Runtime模块管理运行环境，可用于获取当前运行环境信息、与其它程序进行通讯等。通过plus.runtime可获取运行环境管理对象。
+
+实现思路：`plus.runtime` 是 5+ SDK 自身提供的能力，其中，属性大部分是读取当前应用的 `manifest.json` 文件的内容，因此，该模块需要进行额外的初始化管理。
+
+> 在 Web 中使用此模块需要进行初始化，建议在首页的 `$.ready` 或者 `$.plusReady` 方法中，调用 `$.initPlusRuntime` 函数完成模块的初始化，这个模块接收 `manifest` 的参数信息，可以是 `manifest.json` 文件的路径地址 (`String`)，模块会自行读取 `manifest.json` 文件的内容，也可以直接传入 `manifest.json` 的文件内容 (`Object`)，否则该模块中读取的内容都将是模拟值，不具备参考意义。
+
+比如说：
+
+```js
+$.ready(function() {
+  $.initPlusRuntime("../../manifest.json");
+});
+```
+
+实现：
+
+- [x] [appid](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.appid)：✅当前应用的APPID。
+  > 如果未经过初始化，该值将返回 `HBuilder` 模拟值。
+- [x] [arguments](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.arguments)：⚠️第三方程序调用时传递给程序的参数。
+  > 如果未经过初始化，该值为空。在 Web 中，将获取初始化时的页面地址，提取其 `queryString`，作为本属性的返回值。
+- [x] [channel](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.channel)：❗️应用的渠道标识。
+  > Web 是不存在流应用渠道标识的，因此该值将返回空字符串。
+- [x] [launcher](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.launcher)：✅应用启动来源。
+  > 对于 Web 端而言，其应用启动来源永远是“浏览器”，即 `browser`。
+- [x] [origin](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.origin)：⚠️应用安装来源。
+  > 对于 Web 端而言，其不存在应用安装的过程，为了遵循 5+ 的规范，选用了 `scheme` 作为模拟值。
+- [x] [version](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.version)：✅客户端的版本名称。
+  > 如果未经过初始化，将返回默认的 `1.0`。
+- [x] [versionCode](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.versionCode)：✅客户端的版本号。
+  > 如果未经过初始化，将返回空字符串。
+- [x] [innerVersion](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.innerVersion)：❗️客户端5+运行环境的内部版本号。
+  > Web 端不存在 5+ 运行环境，因此将返回空字符串。
+- [x] [uniVersion](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.uniVersion)：❗️客户端uni-app运行环境的版本号。
+  > Web 端不存在 Uni-App 运行环境，因此将返回空字符串。
+- [x] [launchLoadedTime](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.launchLoadedTime)：✅获取当前应用首页加载的时间。
+  > 如果未经过初始化，将返回 0。这里是计算首页 window 加载完毕，与适配器 JS 加载完毕的时间之差。
+- [x] [processId](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.processId)：❗️获取当前应用的进程标识。
+  > Web 端不存在应用进程，因此将返回空字符串。
+- [x] [startupTime](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.startupTime)：✅获取当前应用的启动时间戳。
+- [x] [isRecovery](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.isRecovery)：❗️应用是否由于内核崩溃自动恢复。
+  > Web 无法捕获内核崩溃事件，更何况是 `WKWebview`，所以这里返回的是模拟值 `false`。
 
 ### Storage
 
