@@ -13,6 +13,7 @@
 * [实现进度](#实现进度)
     * [Key](#Key)
     * [Storage](#Storage)
+    * [XMLHttpRequest](#XMLHttpRequest)
 * [常见问题](#常见问题)
 
 ## 项目缘由
@@ -63,7 +64,7 @@ mui.ready(function() {
 
 实现思路：`plus.key` 基本上是对「按键」进行的控制，这个操作在 Web 上有类似实现，但是表现大为不同。
 
-方法：
+实现：
 
 - [x] [addEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.addEventListener)：✅添加按键事件监听器。
 - [x] [hideSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.hideSoftKeybord)：✅隐藏软键盘。
@@ -79,7 +80,7 @@ mui.ready(function() {
 
 实现思路：`plus.storage` 是基于持久化建立的数据存取模块，因此，我们使用 `localStorage` 来代替。`localStorage` 用于长久保存整个网站的数据，保存的数据没有过期时间，直到手动去删除。
 
-方法：
+实现：
 
 - [x] [getLength](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.getLength)：✅获取应用存储区中保存的键值对的个数。
 - [x] [getItem](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.getItem)：✅通过键(key)检索获取应用存储的值。
@@ -87,6 +88,16 @@ mui.ready(function() {
 - [x] [removeItem](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.removeItem)：✅通过key值删除键值对存储的数据。
 - [x] [clear](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.clear)：✅清除应用所有的键值对存储数据。
 - [x] [key](http://www.html5plus.org/doc/zh_cn/storage.html#plus.storage.key)：✅获取键值对中指定索引值的key值。
+
+### XMLHttpRequest
+
+> XMLHttpRequest 模块管理网络请求，与标准 HTML 中的 XMLHttpRequest 用途一致，差别在于前者可以进行跨域访问。通过 `plus.net` 可获取网络请求管理对象。
+
+实现思路：`plus.net` 的用法和标准 XMLHttpRequest 相同，惟一的区别是跨域问题，跨域建议由服务器端进行处理。
+
+实现：
+
+- [x] [XMLHttpRequest](http://www.html5plus.org/doc/zh_cn/xhr.html#plus.net.XMLHttpRequest)：✅跨域网络请求对象
 
 ## 常见问题
 

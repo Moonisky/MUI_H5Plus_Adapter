@@ -150,7 +150,7 @@
   // 模块函数的具体定义参照了 http://www.html5plus.org/doc/h5p.html
   // 由于 Web 和 App 的差异，决定了很多模块无法实现，只能够忽略方法实际效果或者返回模拟值
   // 因此，这些无法正常模拟的 API 会输出警告，以便更好地提醒开发者
-  
+
   /**
    * Webview模块管理应用窗口界面，实现多窗口的逻辑控制管理操作
    * @description 这里使用 Web 的 iframe 来模拟 Webview
@@ -255,10 +255,10 @@
      */
     getWebviewById: function(id) {
       id = id.toString().trim();
-        if (id == "") {
-          return null;
-        }
-        return webview_cache[id];
+      if (id == "") {
+        return null;
+      }
+      return webview_cache[id];
     },
     /**
      * 获取应用首页WebviewObject窗口对象
