@@ -63,5 +63,5 @@
         return localStorage.key(index);
       }
     }
-  }
+  };
 })(mui, document, window);

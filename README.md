@@ -67,8 +67,10 @@ mui.ready(function() {
 
 - [x] [addEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.addEventListener)：✅添加按键事件监听器。
 - [x] [hideSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.hideSoftKeybord)：✅隐藏软键盘。
-- [ ] [setAssistantType](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.setAssistantType)：❗️设置辅助输入类型。
-- [x] [showSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.showSoftKeybord)：⚠️显示软键盘。
+- [x] [setAssistantType](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.setAssistantType)：⚠️设置辅助输入类型。
+  > 这里使用了 `<input>` 标签的 `autocomplete` 属性来模拟实现，但是实际表现仍与原 API 不同，仅能借助浏览器的填充提示来完成软键盘上的辅助输入，但是内容无法控制。
+- [x] [showSoftKeybord](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.showSoftKeybord)：❗️显示软键盘。
+  > 原实现中，iOS 需获取 DOM 中的 `<input>` 元素并调用其 `focus` 方法获取焦点才能主动弹出系统软键盘，而 Web 也是如此实现，因此参照 iOS，直接标记为不支持。
 - [x] [removeEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.removeEventListener)：✅移除按键事件监听器。
 
 ### Storage

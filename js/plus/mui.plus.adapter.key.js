@@ -22,16 +22,20 @@
     key: {
       /**
        * 添加按键事件监听器
-       * @param {Object} keyevent 要监听的按键事件类型
-       * @param {Object} listener 监听按键事件发生时调用的回调函数
-       * @param {Object} capture 捕获按键事件流顺序
+       * @param {String} keyevent 要监听的按键事件类型
+       * @param {Function} listener 监听按键事件发生时调用的回调函数
+       * @param {Boolean} capture 捕获按键事件流顺序
        */
       addEventListener: function(keyevent, listener, capture) {
-        window.addEventListener(keyevent, function(event) {
-          if (listener) {
-            listener(event)
-          }
-        }, capture);
+        window.addEventListener(
+          keyevent,
+          function(event) {
+            if (listener) {
+              listener(event);
+            }
+          },
+          capture
+        );
       },
       /**
        * 隐藏软键盘
@@ -39,42 +43,55 @@
        */
       hideSoftKeybord: function() {
         var activeElement = document.activeElement;
-        if (activeElement && (activeElement.tagName === 'TEXTAREA' || activeElement.tagName === 'INPUT')) {
+        if (
+          activeElement &&
+          (activeElement.tagName === "TEXTAREA" ||
+            activeElement.tagName === "INPUT")
+        ) {
           activeElement.blur();
         }
       },
       /**
        * 设置辅助输入类型
        * @param {Object} type 辅助输入类型
-       * @todo 暂未找到实现的方法
+       * @description 借助 input 控件的 autocomplete 来模拟
        */
       setAssistantType: function(type) {
-        console.warn("暂未实现 plus.key.setAssistantType 设置辅助输入类型")
+        // 设置 input 的 list 属性
+        var activeElement = document.activeElement;
+        if (activeElement && activeElement.tagName === "INPUT") {
+          var autocomplete = "on";
+          switch (type) {
+            case "nick":
+              autocomplete = "nickname";
+              break;
+            case "address":
+              autocomplete = "street-address";
+              break;
+            case "tel":
+              autocomplete = "tel";
+              break;
+            case "email":
+              autocomplete = "email";
+              break;
+            case "company":
+              break;
+            case "tax":
+              break;
+            case "id":
+              break;
+            default:
+              break;
+          }
+          activeElement.setAttribute("autocomplete", autocomplete);
+        }
       },
       /**
        * 显示软键盘
+       * @description 原实现中，iOS 需获取DOM中的input元素并调用其focus方法获取焦点才能主动弹出系统软键盘，而 Web 也是如此实现，因此直接标记为不支持
        */
       showSoftKeybord: function() {
-        var textareas = document.getElementsByTagName('textarea');
-        var inputs = document.getElementsByTagName('input');
-        if (textareas.length > 0) {
-          textareas[0].focus();
-        } else if (inputs.length > 0) {
-          inputs[0].focus();
-        } else {
-          // 如果都不存在，那么新建一个 input 强行显示软键盘
-          var field = document.getElementById(adapterId + 'keyevent_input');
-          if (!field) {
-            field = document.createElement('input');
-            field.id = adapterId + 'keyevent_input';
-            field.setAttribute('type', 'text');
-            document.body.appendChild(field);
-          }
-
-          setTimeout(function() {
-            field.focus();
-          }, 50);
-        }
+        console.warn("Web 端不支持 plus.key.showSoftKeybord 显示软键盘");
       },
       /**
        * 移除按键事件监听器
@@ -85,5 +102,5 @@
         window.removeEventListener(event, listener);
       }
     }
-  }
+  };
 })(mui, document, window);
