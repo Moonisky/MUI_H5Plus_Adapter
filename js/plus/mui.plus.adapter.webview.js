@@ -20,7 +20,7 @@
     // 定义 iframe 样式
     var styleElement = document.createElement("style");
     styleElement.innerHTML =
-      ".mui-iframe-wrapper iframe{display: block;}.mui-iframe-wrapper{top: 45px; bottom: 50px;z-index:500;overflow: scroll;}";
+      ".mui-iframe-wrapper iframe{display: block;width:100%;height:100%;}.mui-iframe-wrapper{height: 100%; width: 100%; position: absolute; padding-bottom: 48px; z-index:500;overflow: scroll;top:0;}";
     styleElement.type = "text/css";
     document.head.appendChild(styleElement);
   });

@@ -120,6 +120,36 @@ $.ready(function() {
 - [x] [startupTime](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.startupTime)：✅获取当前应用的启动时间戳。
 - [x] [isRecovery](http://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.isRecovery)：❗️应用是否由于内核崩溃自动恢复。
   > Web 无法捕获内核崩溃事件，更何况是 `WKWebview`，所以这里返回的是模拟值 `false`。
+- [x] [agreePrivacy](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.agreePrivacy)：✅用户同意隐私政策。
+  > Web 端使用 `localStorage` 来记录用户同意状态。
+- [x] [disagreePrivacy](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.disagreePrivacy)：✅用户不同意隐私政策。
+  > Web 端使用 `localStorage` 来记录用户同意状态。
+- [x] [isAgreePrivacy](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.isAgreePrivacy)：✅查询用户是否同意隐私政策。
+  > Web 端使用 `localStorage` 来记录用户同意状态。
+- [x] [getProperty](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.getProperty)：✅获取指定APPID对应的应用信息。
+  > 如果未经过初始化，将返回默认的 `manifest` 相关信息。
+- [x] [install](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.install)：❗️安装应用。
+  > Web 端不支持安装位于本地的应用。
+- [x] [quit](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.quit)：⚠️退出应用。
+  > Web 端无法实现关闭浏览器，因此作为替代，调用此方法会将当前页面设置为空白页。
+- [x] [restart](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.restart)：✅重启当前的应用。
+  > 如果未经过初始化，将重新打开当前页面。
+- [x] [setBadgeNumber](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.setBadgeNumber)：❗️设置程序快捷方式图标上显示的角标数字。
+  > Web 不存在快捷方式图标，因此无法显示角标数字。
+- [x] [openURL](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.openURL)：✅调用第三方程序打开指定的URL。
+  > 原功能是调起浏览器打开 URL，因此这里将直接打开新的窗口，跳转 URL。
+- [x] [openWeb](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.openWeb)：✅使用内置Webview窗口打开URL。
+  > 浏览器不存在内置的 Webview 窗口，因此也直接打开新的窗口，跳转 URL。
+- [x] [openFile](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.openFile)：⚠️调用第三方程序打开指定的文件。
+  > Web 不支持配置优先使用的程序包名和弹出系统选择程序界面指示区域，因此直接打开新的窗口。
+- [x] [processDirectPage](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.processDirectPage)：✅处理直达页面链接参数。
+  > 如果未经过初始化，那么将返回空字符串，`__direct_page` 参数需要初始化的页面传入。
+- [x] [launchApplication](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.launchApplication)：⚠️调用第三方程序。
+  > Web 端仅支持 URL Scheme 的形式跳转，因此整个应用的参数只支持 `appInf.action`，传入调用程序的 URL Scheme 格式字符串。
+- [x] [isApplicationExist](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.isApplicationExist)：❗️判断第三方程序是否已存在。
+  > Web 端无法读取系统应用列表，因此将永远返回 `true`。
+- [x] [isCustomLaunchPath](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.isCustomLaunchPath)：✅判断是否自定义应用启动页面加载地址。
+  > 如果未经过初始化，那么该 API 无法调用，`__launch_path` 参数需要初始化的页面传入。
 
 ### Storage
 
