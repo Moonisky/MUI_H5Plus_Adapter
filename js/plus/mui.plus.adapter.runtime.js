@@ -143,19 +143,19 @@
      * 用户同意隐私政策
      */
     agreePrivacy: function() {
-      localStorage.setItem(adapterId + "_privacy", "true");
+      localStorage.setItem($.adapterId + "_privacy", "true");
     },
     /**
      * 用户不同意隐私政策
      */
     disagreePrivacy: function() {
-      localStorage.setItem(adapterId + "_privacy", "false");
+      localStorage.setItem($.adapterId + "_privacy", "false");
     },
     /**
      * 查询用户是否同意隐私政策
      */
     isAgreePrivacy: function() {
-      return localStorage.getItem(adapterId + "_privacy") == "true";
+      return localStorage.getItem($.adapterId + "_privacy") == "true";
     },
     /**
      * 获取指定APPID对应的应用信息
@@ -165,37 +165,13 @@
     getProperty: function(appid, getPropertyCB) {
       if (getPropertyCB) {
         getPropertyCB({
-          /**
-           * 应用的APPID
-           */
           appid: manifest.id || "",
-          /**
-           * 应用的版本名称
-           */
           version: (manifest.version && manifest.version.name) || "",
-          /**
-           * 应用的版本号
-           */
           versionCode: (manifest.version && manifest.version.code) || "",
-          /**
-           * 应用的名称
-           */
           name: manifest.name || "",
-          /**
-           * 应用描述信息
-           */
           description: manifest.description || "",
-          /**
-           * 应用描述信息
-           */
           author: (manifest.developer && manifest.developer.name) || "",
-          /**
-           * 开发者邮箱地址
-           */
           email: (manifest.developer && manifest.developer.email) || "",
-          /**
-           * 应用许可特性列表
-           */
           features: manifest.permissions && Object.keys(manifest.permissions)
         });
       }
@@ -227,9 +203,9 @@
      * @description 重启当前的 Web 是跳转到 Adapter 初始化时候的地址
      */
     restart: function() {
-      window.location.href = initUrlLocation
-        ? initUrlLocation.href
-        : window.location.href;
+      window.location.href = initUrlLocation ?
+        initUrlLocation.href :
+        window.location.href;
     },
     /**
      * 设置程序快捷方式图标上显示的角标数字
@@ -265,23 +241,7 @@
      * @description 由于 Web 不能主动打开文件，这里模拟了 input 点击事件来完成文件选择，并将文件转换成 TEXT 格式用新窗口打开
      */
     openFile: function(filepath, options, errorCB) {
-      var inputElement = document.createElement("input");
-      inputElement.setAttribute("id", adapterId + "_input_id");
-      inputElement.setAttribute("type", "file");
-      inputElement.setAttribute("style", "visibility:hidden");
-      inputElement.addEventListener(
-        "change",
-        function() {
-          var files = this.files;
-          if (files && files.length > 0) {
-            var objectURL = URL.createObjectURL(files[0]);
-            window.open(objectURL);
-          }
-        },
-        false
-      );
-      document.body.appendChild(inputElement);
-      inputElement.click();
+      window.open(filepath);
     },
     /**
      * 处理直达页面链接参数
@@ -319,11 +279,30 @@
      */
     launchApplication: function(appInf, errorCB) {
       if (appInf && appInf.action) {
-        window.open(appInf.action);
+        var start = new Date();
+        var ifr = document.createElement('iframe');
+        ifr.src = appInf.action;
+        document.body.appendChild(ifr);
+        ifr.onload = function() {
+          ifr.style.display = 'none';
+        };
+        setTimeout(function() {
+          document.body.removeChild(ifr);
+          var end = new Date();
+          if (end - start - 500 <= 30) {
+            // 0.6s 加载不出来说明 App 没打开
+            if (errorCB) {
+              errorCB({
+                code: "999999",
+                message: "调用第三方程序失败失败"
+              })
+            }
+          }
+        }, 500);
       } else if (errorCB) {
         errorCB({
-          code: "plus999994",
-          message: "调用第三方程序失败"
+          code: "999999",
+          message: "调用第三方程序失败失败"
         });
       }
     },
@@ -333,9 +312,7 @@
      * @description 由于 Web 无法读取系统应用列表，因此全部模拟读取成功的情况
      */
     isApplicationExist: function(appInf) {
-      if (showConsole) {
-        console.warn("Web 无法读取系统应用列表");
-      }
+      console.warn("Web 无法读取系统应用列表，无法判断应用是否安装");
       return true;
     },
     /**

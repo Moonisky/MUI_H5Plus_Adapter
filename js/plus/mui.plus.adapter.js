@@ -15,6 +15,8 @@
   $.ready(function() {
     $.trigger(document, "plusready");
   });
+  
+  $.adapterId = "p1Us_@dAptEr";
 
   // html5+ 模块重新定义
   // 模块函数的具体定义参照了 http://www.html5plus.org/doc/h5p.html
