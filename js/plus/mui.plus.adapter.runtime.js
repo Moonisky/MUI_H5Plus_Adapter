@@ -16,7 +16,7 @@
 
   $.initPlusRuntime = function(jsonUrl) {
     initUrlLocation = window.location;
-    window.attachEvent("onload", function() {
+    window.addEventListener("load", function() {
       initEndTime = new Date().getTime();
     }())
     if (jsonUrl) {
