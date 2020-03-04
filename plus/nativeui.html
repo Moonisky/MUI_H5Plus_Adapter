@@ -7,7 +7,13 @@
 		<meta name="MobileOptimized" content="320"/>
 		<title>Hello H5+</title>
 		<script type="text/javascript" src="../js/common.js"></script>
-		<script type="text/javascript">
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+    <script type="text/javascript" src="../js/mui.picker.min.js"></script>
+    <script type="text/javascript" src="../js/plus/mui.plus.adapter.js"></script>
+    <script type="text/javascript" src="../js/plus/mui.plus.adapter.nativeUI.js"></script>
+    <script type="text/javascript" src="../js/plus/mui.plus.adapter.key.js"></script>
+    <script type="text/javascript" src="../js/plus/mui.plus.adapter.webview.js"></script>
+    <script type="text/javascript">
 function previewImage() {
 	outSet("预览图片");
 	plus.nativeUI.previewImage([
@@ -90,6 +96,7 @@ function showActionSheet(){
 	);
 }
 function showToast(){
+  plus.nativeUI.setUiStyle('dark');
 	plus.nativeUI.toast("您好！正在使用HBuilder开发应用！",{duration:"long"});
 }
 function showWaiting(){
@@ -100,6 +107,8 @@ function showWaiting(){
 }
 		</script>
 		<link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/mui.min.css" type="text/css" charset="utf-8"/>
+    <link rel="stylesheet" href="../css/mui.picker.min.css" type="text/css" charset="utf-8"/>
 	</head>
 	<body>
 		<ul class="dlist">

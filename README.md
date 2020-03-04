@@ -77,6 +77,32 @@ mui.ready(function() {
   > 原实现中，iOS 需获取 DOM 中的 `<input>` 元素并调用其 `focus` 方法获取焦点才能主动弹出系统软键盘，而 Web 也是如此实现，因此参照 iOS，直接标记为不支持。
 - [x] [removeEventListener](http://www.html5plus.org/doc/zh_cn/key.html#plus.key.removeEventListener)：✅移除按键事件监听器。
 
+### NativeUI
+
+> nativeUI管理系统原生界面，可用于弹出系统原生提示对话框窗口、时间日期选择对话框、等待对话框等。
+
+实现思路：能用 MUI 自带的 UI 功能实现的就使用 MUI 实现，不能实现的则自行创建相关的 UI 页面。
+
+> 注意：使用此功能模块的话，要引入 mui.picker 的相关 JS/CSS 文件，否则样式和功能不起作用。
+
+- [x] [actionSheet](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.actionSheet)：✅弹出系统选择按钮框。
+- [x] [alert](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.alert)：✅弹出系统提示对话框。
+- [x] [confirm](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.confirm)：✅弹出系统确认对话框。
+- [x] [closeWaiting](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.closeWaiting)：✅关闭系统等待对话框。
+- [x] [closeToast](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.closeToast)：✅关闭自动消失的提示消息。
+- [x] [previewImage](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.previewImage)：❓预览图片。
+  > 在 Web 中，需要新建一个页面用于专门展示预览的图片内容，并支持各种缩放手势，需要不少的工作量。
+- [x] [showWaiting](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.showWaiting)：⚠️显示系统等待对话框。
+  > 目前暂不支持对等待框 loading 样式进行更改，后续增加。
+- [x] [pickDate](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.pickDate)：⚠️弹出系统日期选择对话框。
+  > 由于 MUI 日期选择器的限制，无法设置标题和默认选择日期。
+- [x] [pickTime](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.pickTime)：⚠️弹出系统时间选择对话框。
+  > 由于 MUI 日期选择器的限制，无法设置默认时间、标题以及二十四小时制。
+- [x] [prompt](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.prompt)：✅弹出系统输入对话框。
+- [x] [toast](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.toast)：✅显示自动消失的提示消息。
+- [x] [setUiStyle](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.setUiStyle)：❗️设置原生界面样式（暗黑模式）。
+  > 仅 iOS 13 支持设置暗黑模式，因此 Web 也不支持此 API 设置。
+
 ### Runtime
 
 > Runtime模块管理运行环境，可用于获取当前运行环境信息、与其它程序进行通讯等。通过plus.runtime可获取运行环境管理对象。
