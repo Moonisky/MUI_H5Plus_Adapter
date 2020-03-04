@@ -12,9 +12,13 @@
 * [注意事项](#注意事项)
 * [实现进度](#实现进度)
     * [Device](#Device)
+    * [Display](#Display)
     * [Key](#Key)
     * [NativeUI](#NativeUI)
+    * [NetworkInfo](#NetworkInfo)
+    * [OS](#OS)
     * [Runtime](#Runtime)
+    * [Screen](#Screen)
     * [Storage](#Storage)
     * [XMLHttpRequest](#XMLHttpRequest)
 * [常见问题](#常见问题)
@@ -87,9 +91,9 @@ mui.ready(function() {
 - [x] [getOAID](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.getOAID)：❗️获取匿名设备标识符。
   > 由于该 API 仅支持 Android 10+，且仅支持部分厂商，此外 Web 也无法获取这些信息，因此直接全部返回失败。
 - [x] [getVAID](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.getVAID)：❗️获取开发者匿名设备标识符。
-> 由于该 API 仅支持 Android 10+，且仅支持部分厂商，此外 Web 也无法获取这些信息，因此直接全部返回失败。
+  > 由于该 API 仅支持 Android 10+，且仅支持部分厂商，此外 Web 也无法获取这些信息，因此直接全部返回失败。
 - [x] [getAAID](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.getAAID)：❗️获取应用匿名设备标识符。
-> 由于该 API 仅支持 Android 10+，且仅支持部分厂商，此外 Web 也无法获取这些信息，因此直接全部返回失败。
+  > 由于该 API 仅支持 Android 10+，且仅支持部分厂商，此外 Web 也无法获取这些信息，因此直接全部返回失败。
 - [x] [getVolume](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.getVolume)：⚠️获取设备的系统音量。
   > 由于 JS 无法获取系统音量，因此这里使用了取巧的办法，检索页面上的 video/audio 标签，然后读取它们的音量。
 - [x] [isWakelock](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.isWakelock)：❗️获取程序是否一直保持唤醒（屏幕常亮）状态。
@@ -99,6 +103,17 @@ mui.ready(function() {
 - [x] [setVolume](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.setVolume)：⚠️设置设备的系统音量。
   > 与 `getVolume` 的思路相同。
 - [x] [vibrate](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.vibrate)：✅设备振动。
+
+### Display
+
+> Display模块管理应用可使用的显示区域信息
+
+实现思路：基于 Web 能获取到的设备信息来尽可能模拟。
+
+实现：
+
+- [x] [resolutionHeight](https://www.html5plus.org/doc/zh_cn/device.html#plus.display.resolutionHeight)：✅应用可使用的屏幕高度逻辑分辨率。
+- [x] [resolutionWidth](https://www.html5plus.org/doc/zh_cn/device.html#plus.display.resolutionWidth)：✅应用可使用的屏幕宽度逻辑分辨率。
 
 ### Key
 
@@ -132,7 +147,7 @@ mui.ready(function() {
 - [x] [confirm](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.confirm)：✅弹出系统确认对话框。
 - [x] [closeWaiting](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.closeWaiting)：✅关闭系统等待对话框。
 - [x] [closeToast](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.closeToast)：✅关闭自动消失的提示消息。
-- [x] [previewImage](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.previewImage)：❓预览图片。
+- [ ] [previewImage](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.previewImage)：❓预览图片。
   > 在 Web 中，需要新建一个页面用于专门展示预览的图片内容，并支持各种缩放手势，需要不少的工作量。
 - [x] [showWaiting](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.showWaiting)：⚠️显示系统等待对话框。
   > 目前暂不支持对等待框 loading 样式进行更改，后续增加。
@@ -144,6 +159,29 @@ mui.ready(function() {
 - [x] [toast](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.toast)：✅显示自动消失的提示消息。
 - [x] [setUiStyle](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.setUiStyle)：❗️设置原生界面样式（暗黑模式）。
   > 仅 iOS 13 支持设置暗黑模式，因此 Web 也不支持此 API 设置。
+
+### NetworkInfo
+
+> networkinfo模块用于获取网络信息。
+
+实现思路：基于 Web 能获取到的设备信息来尽可能模拟。
+
+实现：
+
+- [x] [](https://www.html5plus.org/doc/zh_cn/device.html#plus.networkinfo.getCurrentType)：✅获取设备当前连接的网络类型。
+
+### OS
+
+> OS模块管理操作系统信息。
+
+实现思路：基于 Web 能获取到的设备信息来尽可能模拟。
+
+实现：
+
+- [x] [language](https://www.html5plus.org/doc/zh_cn/device.html#plus.os.language)：✅系统语言信息。
+- [x] [name](https://www.html5plus.org/doc/zh_cn/device.html#plus.os.name)：✅系统的名称。
+- [x] [vendor](https://www.html5plus.org/doc/zh_cn/device.html#plus.os.vendor)：✅系统的供应商信息。
+- [x] [version](https://www.html5plus.org/doc/zh_cn/device.html#plus.os.version)：✅系统版本信息。
 
 ### Runtime
 
@@ -218,6 +256,30 @@ $.ready(function() {
   > Web 端无法读取系统应用列表，因此将永远返回 `true`。
 - [x] [isCustomLaunchPath](https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.isCustomLaunchPath)：✅判断是否自定义应用启动页面加载地址。
   > 如果未经过初始化，那么该 API 无法调用，`__launch_path` 参数需要初始化的页面传入。
+
+### Screen
+
+> Screen模块管理设备屏幕信息。
+
+实现思路：基于 Web 能获取到的设备信息来尽可能模拟。
+
+实现：
+
+- [x] [dpiX](https://www.html5plus.org/doc/zh_cn/device.html#plus.screen.dpiX)：✅设备屏幕水平方向的密度。
+  > 由于获取真实、完整的 DPI 需要进行 DOM 操作，因此这里只是简单的采用 DPI = 96 x DPR 的算法来获取。
+- [x] [dpiY](https://www.html5plus.org/doc/zh_cn/device.html#plus.screen.dpiY)：✅设备屏幕垂直方向的密度。
+  > 由于获取真实、完整的 DPI 需要进行 DOM 操作，因此这里只是简单的采用 DPI = 96 x DPR 的算法来获取。
+- [x] [height](https://www.html5plus.org/doc/zh_cn/device.html#plus.screen.height)：✅屏幕高度物理分辨率。
+- [x] [width](https://www.html5plus.org/doc/zh_cn/device.html#plus.screen.width)：✅屏幕宽度物理分辨率。
+- [x] [resolutionHeight](https://www.html5plus.org/doc/zh_cn/device.html#plus.screen.resolutionHeight)：✅屏幕高度逻辑分辨率。
+- [x] [resolutionWidth](https://www.html5plus.org/doc/zh_cn/device.html#plus.screen.resolutionWidth)：✅屏幕宽度逻辑分辨率。
+- [x] [scale](https://www.html5plus.org/doc/zh_cn/device.html#plus.screen.scale)：✅逻辑分辨率与物理分辨率的缩放比例。
+- [x] [setBrightness](https://www.html5plus.org/doc/zh_cn/device.html#plus.screen.setBrightness)：❗️设置屏幕亮度。
+  > Web 不支持设置屏幕亮度，未找到 API 实现。
+- [x] [getBrightness](https://www.html5plus.org/doc/zh_cn/device.html#plus.screen.getBrightness)：❗️获取屏幕亮度值。
+  > Web 不支持获取屏幕亮度，未找到 API 实现。
+- [x] [lockOrientation](https://www.html5plus.org/doc/zh_cn/device.html#plus.screen.lockOrientation)：✅锁定屏幕方向。
+- [x] [unlockOrientation](https://www.html5plus.org/doc/zh_cn/device.html#plus.screen.unlockOrientation)：✅解除锁定屏幕方向。
 
 ### Storage
 
