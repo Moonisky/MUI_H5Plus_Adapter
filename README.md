@@ -11,7 +11,9 @@
 * [使用方法](#使用方法)
 * [注意事项](#注意事项)
 * [实现进度](#实现进度)
+    * [Device](#Device)
     * [Key](#Key)
+    * [NativeUI](#NativeUI)
     * [Runtime](#Runtime)
     * [Storage](#Storage)
     * [XMLHttpRequest](#XMLHttpRequest)
@@ -60,6 +62,44 @@ mui.ready(function() {
 > * ❗️表示 JS 无法实现，或者实现完全不一致，或者没有效果
 > * ❓表示该实现仍有疑问，或者暂时不清楚怎么实现仍在研究中。
 
+### Device
+
+> Device模块管理设备信息，用于获取手机设备的相关信息，如IMEI、IMSI、型号、厂商等。通过plus.device获取设备信息管理对象。
+
+实现思路：基于 Web 能获取到的设备信息来尽可能模拟。
+
+实现：
+
+- [x] [imei](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.imei)：❗️设备的国际移动设备身份码。
+  > 由于 Web 无法获取 imei，因此参考 iOS 的标准，返回空字符串。
+- [x] [imsi](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.imsi)：❗️设备的国际移动用户识别码。
+  > 由于 Web 无法获取 imsi，因此参考 iOS 的标准，返回空字符串。
+- [x] [model](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.model)：✅设备的型号。
+- [x] [vendor](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.vendor)：✅设备的生产厂商。
+- [x] [uuid](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.uuid)：✅设备的唯一标识。
+  > 由于 Web 没有办法持久化存储 UUID，因此会随机生成一个 UUID 存放到 localStorage 当中，一旦缓存清除，那么会重新生成。
+- [x] [beep](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.beep)：✅发出蜂鸣声。
+  > 由于 Web 没有办法播放系统默认铃声，因此这里使用了一种取巧的办法，也就是使用 HTML5 Web Audio API 实现声音。
+- [x] [dial](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.dial)：⚠️拨打电话。
+  > 由于 Web 页面只支持 href 形式的拨打电话，因此 confirm 参数将被忽略。
+- [x] [getInfo](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.getInfo)：⚠️获取设备信息。
+  > 参见 imei、imsi 和 uuid 的说明。
+- [x] [getOAID](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.getOAID)：❗️获取匿名设备标识符。
+  > 由于该 API 仅支持 Android 10+，且仅支持部分厂商，此外 Web 也无法获取这些信息，因此直接全部返回失败。
+- [x] [getVAID](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.getVAID)：❗️获取开发者匿名设备标识符。
+> 由于该 API 仅支持 Android 10+，且仅支持部分厂商，此外 Web 也无法获取这些信息，因此直接全部返回失败。
+- [x] [getAAID](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.getAAID)：❗️获取应用匿名设备标识符。
+> 由于该 API 仅支持 Android 10+，且仅支持部分厂商，此外 Web 也无法获取这些信息，因此直接全部返回失败。
+- [x] [getVolume](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.getVolume)：⚠️获取设备的系统音量。
+  > 由于 JS 无法获取系统音量，因此这里使用了取巧的办法，检索页面上的 video/audio 标签，然后读取它们的音量。
+- [x] [isWakelock](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.isWakelock)：❗️获取程序是否一直保持唤醒（屏幕常亮）状态。
+  > JS 无法获取屏幕是否常亮的状态，因此这个值是模拟值
+- [x] [setWakelock](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.setWakelock)：⚠️设置应用是否保持唤醒（屏幕常亮）状态。
+  > 目前，仅有 Firefox OS 实现了 requestWakeLock API，因此该功能只支持 Firefox 系统。
+- [x] [setVolume](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.setVolume)：⚠️设置设备的系统音量。
+  > 与 `getVolume` 的思路相同。
+- [x] [vibrate](https://www.html5plus.org/doc/zh_cn/device.html#plus.device.vibrate)：✅设备振动。
+
 ### Key
 
 > Key管理设备按键事件
@@ -84,6 +124,8 @@ mui.ready(function() {
 实现思路：能用 MUI 自带的 UI 功能实现的就使用 MUI 实现，不能实现的则自行创建相关的 UI 页面。
 
 > 注意：使用此功能模块的话，要引入 mui.picker 的相关 JS/CSS 文件，否则样式和功能不起作用。
+
+实现：
 
 - [x] [actionSheet](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.actionSheet)：✅弹出系统选择按钮框。
 - [x] [alert](https://www.html5plus.org/doc/zh_cn/nativeui.html#plus.nativeUI.alert)：✅弹出系统提示对话框。
